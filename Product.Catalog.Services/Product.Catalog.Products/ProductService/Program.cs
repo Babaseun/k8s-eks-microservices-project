@@ -15,8 +15,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
-System.Console.WriteLine(builder.Configuration.GetConnectionString("DbConnection"));
-System.Console.WriteLine("loooojsjsjjjs");
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
@@ -25,7 +23,7 @@ builder.Services.AddScoped<IProductService, ProductService.Services.ProductServi
 
 
 var app = builder.Build();
-
+ 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
