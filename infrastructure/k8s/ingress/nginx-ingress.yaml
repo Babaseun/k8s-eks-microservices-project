@@ -8,7 +8,6 @@ metadata:
   creationTimestamp: "2024-10-16T14:59:25Z"
   generation: 1
   name: minimal-ingress
-  namespace: default
   resourceVersion: "173509"
   uid: 077c9ea9-96a3-4ea0-a22b-2afd3df37436
 spec:
@@ -21,7 +20,7 @@ spec:
                 name: webapi-service
                 port:
                   number: 80
-            path: /api/v1/products
+            path: q
             pathType: Prefix
 status:
   loadBalancer: {}

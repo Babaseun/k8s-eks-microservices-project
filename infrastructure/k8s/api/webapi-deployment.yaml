@@ -17,6 +17,7 @@ spec:
       containers:
         - name: webapi
           image: onibokun/webapi:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           envFrom:
