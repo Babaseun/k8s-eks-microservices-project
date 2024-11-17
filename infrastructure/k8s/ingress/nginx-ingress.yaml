@@ -20,7 +20,7 @@ spec:
                 name: webapi-service
                 port:
                   number: 80
-            path: q
+            path: /testpath
             pathType: Prefix
 status:
   loadBalancer: {}
