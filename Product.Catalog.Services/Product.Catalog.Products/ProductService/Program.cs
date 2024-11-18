@@ -17,8 +17,6 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Progr
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
-
 builder.Services.AddScoped<IProductService, ProductService.Services.ProductService>();
 
 

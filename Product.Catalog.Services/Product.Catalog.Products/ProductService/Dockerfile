@@ -2,7 +2,7 @@
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 ARG BUILD_CONFIGURATION=Release
-ARG ASPNETCORE_ENVIRONMENT=Development
+ARG ASPNETCORE_ENVIRONMENT=Production
 WORKDIR /src
 
 # Copy csproj file and restore dependencies
