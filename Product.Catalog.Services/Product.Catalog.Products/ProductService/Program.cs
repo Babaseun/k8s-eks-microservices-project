@@ -1,4 +1,5 @@
 
+using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using ProductService.Data;
 using ProductService.Middlewares;
@@ -9,14 +10,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-var dbConnection = builder.Configuration.GetConnectionString("DbConnection");
-Console.WriteLine("*******************" + dbConnection);
+// Build the connection string from environment variables
+Env.Load();
+
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST"); 
+var dbPort = Environment.GetEnvironmentVariable("DB_PORT"); 
+var dbName = Environment.GetEnvironmentVariable("DB_NAME"); 
+var dbUser = Environment.GetEnvironmentVariable("DB_USER");
+var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+var connectionString = $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUser};Password={dbPassword}";
+
+Console.WriteLine("*******************" + connectionString);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
-
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService.Services.ProductService>();
