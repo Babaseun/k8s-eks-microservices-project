@@ -49,4 +49,4 @@ jobs:
           dockerfile: Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/webapi:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/product-api:latest
