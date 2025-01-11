@@ -1,4 +1,4 @@
-# Microservices Project
+# Microservices Homelab
 
 This project consists of multiple microservices, including:
 
