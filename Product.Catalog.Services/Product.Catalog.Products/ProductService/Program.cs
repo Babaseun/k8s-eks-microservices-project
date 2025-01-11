@@ -33,15 +33,17 @@ builder.Services.AddScoped<IProductService, ProductService.Services.ProductServi
 
 var app = builder.Build();
  
+// Use Prometheus middleware
+app.UseMetricServer(); 
+app.UseHttpMetrics();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    // Use Prometheus middleware
-    app.UseMetricServer(); 
-    app.UseHttpMetrics();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 using (var scope = app.Services.CreateScope())
 {
