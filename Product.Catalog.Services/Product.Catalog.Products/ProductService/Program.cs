@@ -5,6 +5,7 @@ using ProductService.Data;
 using ProductService.Middlewares;
 using ProductService.Repositories;
 using ProductService.Services;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,6 @@ var dbUser = Environment.GetEnvironmentVariable("DB_USER");
 var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 var connectionString = $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUser};Password={dbPassword}";
 
-Console.WriteLine("*******************" + connectionString);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -36,6 +36,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    // Use Prometheus middleware
+    app.UseMetricServer(); 
+    app.UseHttpMetrics();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

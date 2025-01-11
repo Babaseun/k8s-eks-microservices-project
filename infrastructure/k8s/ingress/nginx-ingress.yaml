@@ -1,26 +1,23 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: webapp-ingress
   annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/rewrite-target":"/"},"name":"minimal-ingress","namespace":"default"},"spec":{"ingressClassName":"nginx-example","rules":[{"http":{"paths":[{"backend":{"service":{"name":"webapi-service","port":{"number":80}}},"path":"/api/v1/products","pathType":"Prefix"}]}}]}}
     nginx.ingress.kubernetes.io/rewrite-target: /
-  creationTimestamp: "2024-10-16T14:59:25Z"
-  generation: 1
-  name: minimal-ingress
-  resourceVersion: "173509"
-  uid: 077c9ea9-96a3-4ea0-a22b-2afd3df37436
 spec:
-  ingressClassName: nginx-example
+  ingressClassName: nginx
   rules:
     - http:
         paths:
-          - backend:
+          - path: /
+            pathType: Prefix
+            backend:
               service:
                 name: webapi-service
                 port:
                   number: 80
-            path: /testpath
-            pathType: Prefix
-status:
-  loadBalancer: {}
+# Install Nginx Ingress controller before applying the above
+
+# helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+# helm repo update
+# helm install nginx-ingress ingress-nginx/ingress-nginx
