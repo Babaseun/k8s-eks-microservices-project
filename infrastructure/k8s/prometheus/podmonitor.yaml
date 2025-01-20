@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: postgres-db
+  namespace: monitoring
+  labels:
+    release: prometheus # matches kube-prometheus-stack release label
+spec:
+  selector:
+    matchLabels:
+      "k8s.enterprisedb.io/cluster": postgres-db
+  namespaceSelector:
+    matchNames:
+      - database
+  podMetricsEndpoints:
+    - port: metrics

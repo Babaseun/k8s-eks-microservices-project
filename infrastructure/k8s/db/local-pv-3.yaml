@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: local-pv
+  name: local-pv-3
+  namespace: database
 spec:
   capacity:
-    storage: 30Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
@@ -20,3 +21,5 @@ spec:
               values:
                 - node01
                 - node02
+# Each postgres db instance has a separate copy of data.
+# local-pv-3 is for the 3rd instance

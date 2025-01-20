@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: product-api-deployment
+  namespace: production
   labels:
     app: product-api
 spec:
@@ -15,31 +16,31 @@ spec:
         app: product-api
     spec:
       containers:
-        - name: webapi
+        - name: product-api
           image: onibokun/product-api:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
             - name: DB_HOST
-              value: cluster-example-rw
+              value: postgres-db-rw.database.svc.cluster.local
             - name: DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: cluster-example-app
+                  name: postgres-db-app
                   key: port
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: cluster-example-app
+                  name: postgres-db-app
                   key: dbname
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: cluster-example-app
+                  name: postgres-db-app
                   key: user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: cluster-example-app
+                  name: postgres-db-app
                   key: password
